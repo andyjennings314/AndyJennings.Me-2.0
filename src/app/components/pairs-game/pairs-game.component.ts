@@ -1,14 +1,14 @@
-import { NgClass, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Card } from '../../interfaces/card';
 
 @Component({
   selector: 'app-pairs-game',
-  imports: [NgClass, NgFor],
+  imports: [NgClass, NgFor, NgIf],
   templateUrl: './pairs-game.component.html',
   styleUrl: './pairs-game.component.scss'
 })
-export class PairsGameComponent {
+export class PairsGameComponent implements OnInit {
   allCards: Card[];
   cardSortingHolding: Card[];
   clickedCards: Card[];
@@ -16,7 +16,7 @@ export class PairsGameComponent {
   selectedCards: Card[];
   winGame: boolean;
   constructor(){
-    this.clickingActive = false;
+    this.clickingActive = true;
     this.selectedCards = [];
     this.clickedCards = [];
     this.winGame = false;
@@ -31,7 +31,7 @@ export class PairsGameComponent {
     ];
   }
 
-  NgOnInit() {
+  ngOnInit(): void {
     this.getCards(4);
   }
 
@@ -57,7 +57,7 @@ export class PairsGameComponent {
     //has this card already been selected or paired up
     if (this.clickingActive == true && card.clicked == false && card.correct == false) {
         //if not, note it's been clicked, and add it to the current pair of selected cards
-        this.clickingActive = false
+        this.clickingActive = false;
         card.clicked = true;
         this.clickedCards.push(card);
         setTimeout(() => {
