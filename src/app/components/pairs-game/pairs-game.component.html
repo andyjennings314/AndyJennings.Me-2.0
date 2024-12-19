@@ -1,0 +1,19 @@
+<div class="pairs-game">
+    <h1 class="pairs-game__header">Pairs!!</h1>
+    <div id="pairsWindow">
+        <div class="pairs-game__card"
+            [ngClass]="{'flipped': card.clicked || card.correct}"
+            *ngFor="let card of selectedCards; index as i;"
+            (click)="clickCard(card)">
+            <img class="pairs-game__card-back" src="assets/images/card_back.jpg" />
+            <img class="pairs-game__card-front" src="assets/images/card_{{card.type}}.jpg" />
+        </div>
+        <div class="pairs-game__modal" *ngIf="winGame">
+            <h2>You win!</h2>
+            <p>Want to play again?</p>
+            <span class="pairs-game__modal-button" (click)="resetGame(2)">Easy (2 pairs)</span>
+            <span class="pairs-game__modal-button" (click)="resetGame(4)">Medium (4 pairs)</span>
+            <span class="pairs-game__modal-button" (click)="resetGame(6)">Hard (6 pairs)</span>
+        </div>
+    </div>
+</div>

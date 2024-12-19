@@ -1,0 +1,66 @@
+#pairsWindow {
+    width: 540px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.pairs-game {
+    &__header {}
+    &__card {
+        display: inline-block;
+        padding: 5px;
+        position: relative;
+        width: 125px;
+        height: 200px;
+        cursor: pointer;
+
+        &-back {
+            position: absolute;
+            /*opacity: 1;*/
+            transition: all 1s;
+            transition: all 0.5s;
+            transition-delay: 0.5s;
+        }
+        &-front {
+            position: absolute;
+            /*opacity: 0;*/
+            transform: rotateY(-90deg);
+            transition: all 0.5s;
+        }
+        &.flipped {
+            cursor: unset;
+            
+            .pairs-game__card-front {
+                /*opacity: 1;*/
+                transform: rotateY(0deg);
+                transition: all 0.5s;
+                transition-delay: 0.5s;
+            }
+        
+            .pairs-game__card-back {
+              /*opacity: 0;*/
+              transform: rotateY(90deg);
+              transition: all 0.5s;
+            }
+        }
+    }
+    &__modal {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        right: 50px;
+        padding: 10px;
+        background-color: #242446;
+        box-shadow: rgba(0, 0, 0, 0.6) 5px 5px;
+
+        h2 {
+            margin: 0;
+        }
+
+        &-button {
+            background: linear-gradient(to bottom, #000062 0%, #000062 37%, #000045 100%);
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+    }
+}
