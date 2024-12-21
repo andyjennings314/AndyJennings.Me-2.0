@@ -1,0 +1,15 @@
+body {
+    background: hotpink;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    router-outlet + * {
+        min-height: calc(100vh - 80px);
+        background-color: orange;
+    }
+}
