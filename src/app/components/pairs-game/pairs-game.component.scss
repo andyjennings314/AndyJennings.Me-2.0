@@ -1,7 +1,8 @@
 #pairsWindow {
-    width: 540px;
+    width: 600px;
     margin: 0 auto;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .pairs-game {
@@ -10,37 +11,40 @@
         display: inline-block;
         padding: 5px;
         position: relative;
-        width: 125px;
-        height: 200px;
+        width: 135px;
+        height: 210px;
         cursor: pointer;
+        
+        img {
+            border: 5px solid red;
+            border-radius: 15px;
+            box-shadow: 10px 10px 10px 2px rgba(0, 0, 0, 0.4);
+        }
 
         &-back {
             position: absolute;
-            /*opacity: 1;*/
-            transition: all 1s;
-            transition: all 0.5s;
+            transition: transform 0.5s;
             transition-delay: 0.5s;
         }
         &-front {
             position: absolute;
-            /*opacity: 0;*/
             transform: rotateY(-90deg);
-            transition: all 0.5s;
+            transition: transform 0.5s;
         }
         &.flipped {
             cursor: unset;
-            
+
             .pairs-game__card-front {
                 /*opacity: 1;*/
                 transform: rotateY(0deg);
-                transition: all 0.5s;
+                transition: transform 0.5s;
                 transition-delay: 0.5s;
             }
         
             .pairs-game__card-back {
               /*opacity: 0;*/
               transform: rotateY(90deg);
-              transition: all 0.5s;
+              transition: transform  0.5s;
             }
         }
     }
