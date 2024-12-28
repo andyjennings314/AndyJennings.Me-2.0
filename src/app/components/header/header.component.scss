@@ -11,8 +11,15 @@ header {
 
             a {
                 color: $light-brown;
+                transition: color 0.25s, transform 0.25s; 
                 text-decoration: none;
                 font-weight: bold;
+                display: block;
+
+                &:hover {
+                    color: $dark-red;
+                    transform: scale(1.1);
+                }
             }
         }
     }
