@@ -16,6 +16,11 @@ app-root {
 
 h1, h2, h3, h4, h5, h6 {
     color: $white;
-    -webkit-text-stroke: 1.5px $dark-red;
-    text-shadow: 4px 4px transparentize($dark-blue, 0.2) ;
+    font-variant: small-caps;
+}
+
+h1.page-title {
+    font-size: 70px;
+    -webkit-text-stroke: 3px $dark-red;
+    text-shadow: 6px 6px transparentize($dark-blue, 0.2);
 }
