@@ -1,0 +1,11 @@
+@import "../../../assets/styles/colours";
+
+footer {
+    background-color: $light-blue;
+    color: $dark-blue;
+    padding: 5px 25px;
+
+    p {
+        margin: 10px 0;
+    }
+}
