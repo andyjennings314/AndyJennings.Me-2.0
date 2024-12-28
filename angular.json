@@ -36,8 +36,14 @@
                 "output": "/assets/"
               }
             ],
+            "stylePreprocessorOptions":{
+              "includePaths": [
+                "src/app/styles"
+              ]
+            },
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/app/components/**/*.scss"
             ],
             "scripts": []
           },
