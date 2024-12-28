@@ -5,8 +5,8 @@
             [ngClass]="{'flipped': card.clicked || card.correct}"
             *ngFor="let card of selectedCards; index as i;"
             (click)="clickCard(card)">
-            <img class="pairs-game__card-back" src="assets/images/card_back.jpg" />
             <img class="pairs-game__card-front" src="assets/images/card_{{card.type}}.jpg" />
+            <img class="pairs-game__card-back" src="assets/images/card_back.jpg" />
         </div>
         <div class="pairs-game__modal" *ngIf="winGame">
             <h2>You win!</h2>
