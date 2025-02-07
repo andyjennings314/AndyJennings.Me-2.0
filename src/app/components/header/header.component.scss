@@ -1,5 +1,7 @@
+@import "../../../assets/styles/colours";
+
 header {
-    background-color: red;
+    background-color: $dark-blue;
     ul {
         margin: 0;
 
@@ -7,7 +9,18 @@ header {
             display: inline-block;
             padding: 10px;
 
-            a {}
+            a {
+                color: $light-brown;
+                transition: color 0.25s, transform 0.25s; 
+                text-decoration: none;
+                font-weight: bold;
+                display: block;
+
+                &:hover {
+                    color: $dark-red;
+                    transform: scale(1.1);
+                }
+            }
         }
     }
 }

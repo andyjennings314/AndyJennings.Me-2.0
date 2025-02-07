@@ -1,5 +1,6 @@
 body {
-    background: hotpink;
+    background: $mid-blue;
+    color: $white-blue;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -9,7 +10,18 @@ app-root {
     height: 100vh;
 
     router-outlet + * {
-        min-height: calc(100vh - 80px);
-        background-color: orange;
+        min-height: calc(100vh - 87px);
+        overflow-y: scroll;
     }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $white;
+    font-variant: small-caps;
+}
+
+h1.page-title {
+    font-size: 70px;
+    -webkit-text-stroke: 3px $dark-red;
+    text-shadow: 6px 6px transparentize($dark-blue, 0.2);
 }
