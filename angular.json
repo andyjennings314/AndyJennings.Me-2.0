@@ -42,8 +42,7 @@
               ]
             },
             "styles": [
-              "src/styles.scss",
-              "src/app/components/**/*.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },
