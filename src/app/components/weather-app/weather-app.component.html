@@ -1,0 +1,29 @@
+<h1 class="page-title">What's The Weather Like There?</h1>
+
+<div class="weatherMain" [ngClass]="{
+  'day' : weatherSpecifics.day && !weatherSpecifics.dusk ,
+  'night' : !weatherSpecifics.day && !weatherSpecifics.dusk,
+  'dusk' : weatherSpecifics.dusk
+}">
+    <h3>{{weatherData.name}}</h3>
+    <div class="weatherIcon">
+        <h1 title="{{weatherSpecifics.label}}">{{weatherSpecifics.icon}}</h1>
+        <h2>{{weatherSpecifics.label}}</h2>
+    </div>
+
+    <div class="weatherElement">
+        <div>
+            <h4 title="Temperature">{{weatherSpecifics.temp || 0}}°C</h4>
+        </div>
+        <div>
+            <h4 class="arrow" [ngStyle]="{'transform': 'rotate('+ weatherData.wind.deg +'deg)'}" title="Wind direction">⬆</h4>
+        </div>
+    </div>
+</div>
+<div class="weatherAlternate">
+    <h3>Want to see the weather somewhere else?</h3>
+    <span class="newWeather" (click)="getWeatherAtPlace('2643743')">London</span>
+    <span class="newWeather" (click)="getWeatherAtPlace('5368361')">LA</span>
+    <span class="newWeather" (click)="getWeatherAtPlace('524901')">Moscow</span>
+    <span class="newWeather" (click)="getWeatherAtLocation(coords)">There Again</span>
+</div>
