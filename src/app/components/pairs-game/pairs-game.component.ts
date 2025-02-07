@@ -9,7 +9,6 @@ import { Card } from '../../interfaces/card';
   styleUrl: './pairs-game.component.scss'
 })
 export class PairsGameComponent implements OnInit {
-  allCards: Card[];
   cardSortingHolding: Card[];
   clickedCards: Card[];
   clickingActive: boolean;
@@ -21,14 +20,6 @@ export class PairsGameComponent implements OnInit {
     this.clickedCards = [];
     this.winGame = false;
     this.cardSortingHolding = [];
-    this.allCards = [
-      { type: 0, clicked: false, correct: false },
-      { type: 1, clicked: false, correct: false },
-      { type: 2, clicked: false, correct: false },
-      { type: 3, clicked: false, correct: false },
-      { type: 4, clicked: false, correct: false },
-      { type: 5, clicked: false, correct: false }
-    ];
   }
 
   ngOnInit(): void {
@@ -39,9 +30,8 @@ export class PairsGameComponent implements OnInit {
     //get requested number of pairs into holding array
     this.cardSortingHolding = []
     for (var i = 0; i < numberOfPairs; i++) {
-      let nextCard = this.allCards[i];
-      this.cardSortingHolding.push({...nextCard});
-      this.cardSortingHolding.push({...nextCard});
+      let nextCard = { type: i, clicked: false, correct: false };
+      this.cardSortingHolding.push({...nextCard}, {...nextCard});
     }
 
     //shuffle holding array into selected cards array
@@ -55,7 +45,7 @@ export class PairsGameComponent implements OnInit {
 
   clickCard = (card: Card) => {
     //has this card already been selected or paired up
-    if (this.clickingActive == true && card.clicked == false && card.correct == false) {
+    if (this.clickingActive && !card.clicked && !card.correct) {
         //if not, note it's been clicked, and add it to the current pair of selected cards
         this.clickingActive = false;
         card.clicked = true;
@@ -66,25 +56,24 @@ export class PairsGameComponent implements OnInit {
                 if (this.clickedCards[0].type === this.clickedCards[1].type) {
                     //if they match, mark them as correct, and see if you've matched them all
                     this.clickedCards = [];
-                    for (var i = 0; i < this.selectedCards.length; i++) {
-                        if (this.selectedCards[i].clicked == true) {
-                            this.selectedCards[i].clicked = false;
-                            this.selectedCards[i].correct = true
-                        }
-                        var remainingCards = this.selectedCards.filter(card => card.correct == false );
-                        if (remainingCards.length == 0) {
-                            //U R TEH WINRAR
-                            this.winGame = true;
-                        }
-                    }
-
+                    this.selectedCards.forEach(card => {
+                      if (card.clicked == true) {
+                        card.clicked = false;
+                        card.correct = true
+                      }
+                      var remainingCards = this.selectedCards.filter(card => card.correct == false );
+                      if (remainingCards.length == 0) {
+                          //U R TEH WINRAR
+                          this.winGame = true;
+                      }
+                    });
                 }
-                    //if they don't match, flip them over again and clear the selected cards
+                //if they don't match, flip them over again and clear the selected cards
                 else {
                     this.clickedCards = [];
-                    for (var i = 0; i < this.selectedCards.length; i++) {
-                        this.selectedCards[i].clicked = false;
-                    }
+                    this.selectedCards.forEach(card => {
+                      card.clicked = false;
+                    });
                 }
             }
             this.clickingActive = true;
