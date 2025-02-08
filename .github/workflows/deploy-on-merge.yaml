@@ -8,15 +8,20 @@ name: Deploy to FTP after PR
 jobs:
   web-deploy:
     if: github.event.pull_request.merged == true
-    name: 🎉 Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
+    - name: Get latest code
       uses: actions/checkout@v4
-    
-    - name: 📂 Sync files
+    - name: Build Project
+      run: |
+        npm i
+        npm run build
+    - name: Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ftp.andyjennings.me
         username: andyhimself@andyjennings.me
         password: ${{ secrets.ftp_password }}
+        local-dir: ./dist
+        server-dir: andyjennings.me/public_html
