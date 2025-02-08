@@ -24,4 +24,4 @@ jobs:
         username: andyhimself@andyjennings.me
         password: ${{ secrets.ftp_password }}
         local-dir: ./dist/
-        server-dir: andyjennings.me/public_html
+        server-dir: andyjennings.me/public_html/
