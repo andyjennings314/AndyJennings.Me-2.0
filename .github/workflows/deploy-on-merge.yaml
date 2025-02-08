@@ -1,0 +1,22 @@
+on:
+  pull_request:
+    types: 
+      - closed
+    branches:
+      - main
+name: Deploy to FTP after PR
+jobs:
+  web-deploy:
+    if: github.event.pull_request.merged == true
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftp.andyjennings.me
+        username: andyhimself@andyjennings.me
+        password: ${{ secrets.ftp_password }}
