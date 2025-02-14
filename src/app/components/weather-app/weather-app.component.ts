@@ -37,7 +37,7 @@ export class WeatherAppComponent implements OnInit {
 
   getWeatherAtLocation (coords: [number, number]): void {
     // take the lat/long for a location, and grab the weather for it
-    this.http.get("http://api.openweathermap.org/data/2.5/weather?lat=" + coords[0] + "&lon=" + coords[1] + "&units=metric&APPID=ccb35c4ddc9c18fbc7a99948519855b7")
+    this.http.get("https://api.openweathermap.org/data/2.5/weather?lat=" + coords[0] + "&lon=" + coords[1] + "&units=metric&APPID=ccb35c4ddc9c18fbc7a99948519855b7")
        .subscribe((data) => {
                this.weatherData = data;
                this.massageTheData();
@@ -47,7 +47,7 @@ export class WeatherAppComponent implements OnInit {
 
   getWeatherAtPlace(placeID: string): void  {
     // if a specific location ID is passed, grab the weather for that place
-    this.http.get("http://api.openweathermap.org/data/2.5/weather?id=" + placeID + "&units=metric&APPID=ccb35c4ddc9c18fbc7a99948519855b7")
+    this.http.get("https://api.openweathermap.org/data/2.5/weather?id=" + placeID + "&units=metric&APPID=ccb35c4ddc9c18fbc7a99948519855b7")
        .subscribe((data) => {
                this.weatherData = data;
                this.massageTheData();
