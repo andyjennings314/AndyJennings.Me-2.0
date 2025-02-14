@@ -1,6 +1,7 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { interval, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-weather-app',
@@ -24,7 +25,7 @@ export class WeatherAppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.getUserLocation();
+    // get the user's location, and send the long/lat to the weather checker
     this.http.get("https://api.ipstack.com/check?access_key=8f24b4a9c4cba8e5cd8140cb5e2a8cbd")
        .subscribe((data: any) => {
           console.log (data);
@@ -32,14 +33,10 @@ export class WeatherAppComponent implements OnInit {
                this.getWeatherAtLocation(this.coords);
            }
         );
-  
-    //https://freegeoip.net/json/?callback=
-    //var lati = data.latitude.roundTo(0)
-    //var long = data.longitude.roundTo(0)
-    //api.openweathermap.org/data/2.5/weather?lat=" + lati + "&lon=" + long + "
   }
 
   getWeatherAtLocation (coords: [number, number]): void {
+    // take the lat/long for a location, and grab the weather for it
     this.http.get("http://api.openweathermap.org/data/2.5/weather?lat=" + coords[0] + "&lon=" + coords[1] + "&units=metric&APPID=ccb35c4ddc9c18fbc7a99948519855b7")
        .subscribe((data) => {
                this.weatherData = data;
@@ -49,6 +46,7 @@ export class WeatherAppComponent implements OnInit {
 }
 
   getWeatherAtPlace(placeID: string): void  {
+    // if a specific location ID is passed, grab the weather for that place
     this.http.get("http://api.openweathermap.org/data/2.5/weather?id=" + placeID + "&units=metric&APPID=ccb35c4ddc9c18fbc7a99948519855b7")
        .subscribe((data) => {
                this.weatherData = data;
@@ -58,28 +56,28 @@ export class WeatherAppComponent implements OnInit {
   }
 
   massageTheData(): void {
-      if (this.weatherData != null) {
-
-          //get the local time, and the sunset/rise times
+    // check we have the weather data, then do some shenanigans with it
+    if (this.weatherData != null) {
+          //get the current time, and the sunset/rise times for the location
           let now = Date.now(),
             sunTimes = [
-              (this.weatherData.sys.sunrise * 1000) - 3600000,
-              (this.weatherData.sys.sunrise * 1000) + 3600000,
-              (this.weatherData.sys.sunset * 1000) - 3600000,
-              (this.weatherData.sys.sunset * 1000) + 3600000
+              (this.weatherData.sys.sunrise * 1000) - 3600000, //night ends, dawn starts
+              (this.weatherData.sys.sunrise * 1000) + 3600000, //dawn ends, daytime starts
+              (this.weatherData.sys.sunset * 1000) - 3600000, //daytime ends, dusk starts
+              (this.weatherData.sys.sunset * 1000) + 3600000 //dusk ends, night starts
             ];
           
           
           if (now < sunTimes[0] || now > sunTimes[3]) {
-              //It's night time
+              //Before dawn or after dusk - it's night time
               this.weatherSpecifics.day = false;
               this.weatherSpecifics.dusk = false;
           } else if (now > sunTimes[1] && now < sunTimes[2]) {
-              //It's day time
+              //After dawn but before dusk - it's day time
               this.weatherSpecifics.day = true;
               this.weatherSpecifics.dusk = false;
           } else {
-            //From dusk or dawn
+            // During dusk or dawn
             this.weatherSpecifics.day = false;
             this.weatherSpecifics.dusk = true;
           }
@@ -93,8 +91,7 @@ export class WeatherAppComponent implements OnInit {
           this.changeTemperature(this.weatherData.main.temp.toFixed(0));
 
           //first digit of the weather ID is (mostly) what determines the broad weather type. Get that and switch against it for the weather details
-          var weatherCode = mainWeather.id;
-          switch (String(weatherCode).charAt(0)) {
+          switch (String(mainWeather.id).charAt(0)) {
               case '2':
                   //thunder
                   this.weatherSpecifics.icon = "🌩";
@@ -114,21 +111,16 @@ export class WeatherAppComponent implements OnInit {
                   this.weatherSpecifics.icon = "🌫";
                   break;
               case '8':
-                  if (weatherCode == 800){
+                  if (mainWeather.id == 800){
                       //clear skies - check if it's night or day for the icon
-                      if (this.weatherSpecifics.day = true) {
-                          this.weatherSpecifics.icon = "☀";
-                      } else {
-                          this.weatherSpecifics.icon = "☾";
-                      }
-                  }
-                  else {
+                      this.weatherSpecifics.icon = this.weatherSpecifics.day ? "☀" : "☾" ;
+                  } else {
                       //cloudy
                       this.weatherSpecifics.icon = "☁";
                   }
                   break;
               case '9':
-                  if (String(weatherCode).charAt(1) == '0') {
+                  if (String(mainWeather.id).charAt(1) == '0') {
                       //EXTREME WEATHER!!
                       this.weatherSpecifics.icon = "!!!";
                   }
@@ -142,18 +134,12 @@ export class WeatherAppComponent implements OnInit {
   }
 
   changeTemperature(newTemp: number): void {
-      //this.weatherSpecifics.temp
-      //newTemp
-      if (this.weatherSpecifics.temp != newTemp) {
-          var goingUp = (this.weatherSpecifics.temp < newTemp) ? true : false;
-          if (goingUp) { this.weatherSpecifics.temp++ } else { this.weatherSpecifics.temp-- }
-
-          setTimeout(() => {
-              if (this.weatherSpecifics.temp != newTemp) {
-                  this.changeTemperature(newTemp);
-              }
-          }, 25)
-      }
+      // while we *could* smash-cut temperature changes, why not be a smartarse and have them tick up?
+        interval(25)
+        .pipe(takeWhile(() => this.weatherSpecifics.temp != newTemp))
+        .subscribe(() => {
+            this.weatherSpecifics.temp < newTemp ? this.weatherSpecifics.temp++ : this.weatherSpecifics.temp--;
+        });
   }
 }
 
