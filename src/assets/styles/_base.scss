@@ -10,11 +10,12 @@ app-root {
     height: 100vh;
 
     router-outlet + * {
-        min-height: calc(100vh - 102px);
+        min-height: calc(100vh - 64px);
         overflow-y: scroll;
         padding: 0 15px 15px;
 
         @media #{$medium-up} {
+            min-height: calc(100vh - 102px);
             padding: 0 20px 15px;
         }
 

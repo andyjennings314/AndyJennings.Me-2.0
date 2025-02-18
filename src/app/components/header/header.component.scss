@@ -1,12 +1,72 @@
 @import "../../../assets/styles/colours";
+@import "../../../assets/styles/breakpoints";
 
 header {
-    background-color: $dark-blue;
-    ul {
+    a.page-header__toggle {
+        float: left;
+        cursor: pointer;
+        color: $white;
+        background-color: $dark-red;
+        padding: 40px;
+        position: fixed;
+        top: -40px;
+        left: -40px;
+        border-radius: 80px;
+        text-decoration: none;
+        box-shadow: -10px -10px 15px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        transition: all 1s;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        width: 15px;
+        height: 15px;
+        z-index: 55;
+      
+          span {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transition: transform 1s;
+            -webkit-transition: transform 1s;
+      
+              &::before, &::after {
+                content: "|";
+                display: inline-block;
+                transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                position: absolute;
+                top: 0px;
+                transition: all 1s;
+              }
+      
+              &::before {
+                left: -5px;
+              }
+      
+              &::after {
+                left: 5px;
+              }
+          }
+
+          @media #{$medium-up} {
+            display: none;
+          }
+      }
+
+    ul.page-header__menu {
         margin: 0;
+        padding-left: 75px;
+        background-color: $dark-blue;
+        position: absolute;
+        transition: top 2s;
+        top: -25%;
+        left: 0;
+        right: 0;
 
         li {
-            display: inline-block;
+            display: block;
             padding: 10px;
 
             a {
@@ -14,12 +74,29 @@ header {
                 transition: color 0.25s, transform 0.25s; 
                 text-decoration: none;
                 font-weight: bold;
-                display: block;
+                display: inline-block;
+                
+                fa-icon {
+                    margin-right: 15px;
+                }
 
                 &:hover {
                     color: $dark-red;
                     transform: scale(1.1);
                 }
+            }
+        }
+
+        &--expanded {
+            top: 0;
+        }
+
+        @media #{$medium-up} {
+            position: relative;
+            padding: 0;
+
+            li {
+                display: inline-block;
             }
         }
     }
