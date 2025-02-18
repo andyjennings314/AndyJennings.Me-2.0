@@ -1,28 +1,31 @@
 <header id="PageHeader">
-    <ul class="HeaderMenu">
-        <li>
-          <a [routerLink]="['/']">Home</a>
-        </li>
-        <li>
-          <a [routerLink]="['/about-me']">About Me</a>
-        </li>
-        <li>
-          <a [routerLink]="['/my-work']">My Work</a>
-        </li>
-        <li>
-          <a aria-label="Link to my LinkedIn profile" href="https://uk.linkedin.com/pub/andrew-jennings/4b/9b4/586">
-            <fa-icon [icon]="faLinkedin"></fa-icon>
-          </a>
-        </li>
-        <li>
-          <a aria-label="Link to my GitHub account" href="https://github.com/andyjennings314">
-            <fa-icon [icon]="faGithub"></fa-icon>
-          </a>
-        </li>
-        <li>
-          <a aria-label="Link to send me an email" href="mailto:andyjennings314@gmail.com">
-            <fa-icon [icon]="faEnvelope"></fa-icon>
-          </a>
-        </li>
-    </ul>
-  </header>
+  <a 
+    class="page-header__toggle"
+    (click)="mobileExpanded = !mobileExpanded">
+    <span>|</span>
+  </a>
+  <ul 
+    class="page-header__menu"
+    [ngClass]="{'page-header__menu--expanded': mobileExpanded}">
+    <li>
+      <a [routerLink]="['/']">Home</a>
+    </li>
+    <li>
+      <a [routerLink]="['/about-me']">About Me</a>
+    </li>
+    <li>
+      <a [routerLink]="['/my-work']">My Work</a>
+    </li>
+    <li>
+      <a aria-label="Link to my LinkedIn profile" href="https://uk.linkedin.com/pub/andrew-jennings/4b/9b4/586">
+        <fa-icon [icon]="faLinkedin"></fa-icon>
+      </a>
+      <a aria-label="Link to my GitHub account" href="https://github.com/andyjennings314">
+        <fa-icon [icon]="faGithub"></fa-icon>
+      </a>
+      <a aria-label="Link to send me an email" href="mailto:andyjennings314@gmail.com">
+        <fa-icon [icon]="faEnvelope"></fa-icon>
+      </a>
+    </li>
+  </ul>
+</header>
