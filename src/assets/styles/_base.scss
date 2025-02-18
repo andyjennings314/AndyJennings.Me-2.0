@@ -10,8 +10,17 @@ app-root {
     height: 100vh;
 
     router-outlet + * {
-        min-height: calc(100vh - 87px);
+        min-height: calc(100vh - 102px);
         overflow-y: scroll;
+        padding: 0 15px 15px;
+
+        @media #{$medium-up} {
+            padding: 0 20px 15px;
+        }
+
+        @media #{$large-up} {
+            padding: 0 35px 15px;
+        }
     }
 }
 
@@ -21,7 +30,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1.page-title {
-    font-size: 70px;
-    -webkit-text-stroke: 3px $dark-red;
+    font-size: 40px;
+    -webkit-text-stroke: 2px $dark-red;
     text-shadow: 6px 6px transparentize($dark-blue, 0.2);
+    text-align: center;
+
+    @media #{$medium-up} {
+        font-size: 50px;
+        -webkit-text-stroke: 3px $dark-red;
+    }
+
+    @media #{$large-up} {
+        font-size: 60px;
+    }
 }
