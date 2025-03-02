@@ -22,8 +22,11 @@
 </div>
 <div class="weatherAlternate">
     <h3>Want to see the weather somewhere else?</h3>
-    <span class="newWeather" (click)="getWeatherAtPlace('2643743')">London</span>
-    <span class="newWeather" (click)="getWeatherAtPlace('5368361')">LA</span>
-    <span class="newWeather" (click)="getWeatherAtPlace('524901')">Moscow</span>
-    <span class="newWeather" (click)="getWeatherAtLocation(coords)">There Again</span>
+
+    <div class="button-group">
+        <button class="newWeather" (click)="getWeatherAtPlace('2643743')">London</button>
+        <button class="newWeather" (click)="getWeatherAtPlace('5368361')">LA</button>
+        <button class="newWeather" (click)="getWeatherAtPlace('524901')">Moscow</button>
+        <button class="newWeather" (click)="getWeatherAtLocation(coords)">There Again</button>
+    </div>
 </div>
