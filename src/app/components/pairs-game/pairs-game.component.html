@@ -8,12 +8,12 @@
             <img class="pairs-game__card-front" src="assets/images/card_{{card.type}}.jpg" />
             <img class="pairs-game__card-back" src="assets/images/card_back.jpg" />
         </div>
-        <div class="pairs-game__modal" *ngIf="winGame">
+        <dialog class="pairs-game__modal" popover="auto">
             <h2>You win!</h2>
             <p>Want to play again?</p>
             <span class="pairs-game__modal-button" (click)="resetGame(2)">Easy (2 pairs)</span>
             <span class="pairs-game__modal-button" (click)="resetGame(4)">Medium (4 pairs)</span>
             <span class="pairs-game__modal-button" (click)="resetGame(6)">Hard (6 pairs)</span>
-        </div>
+        </dialog>
     </div>
 </div>
