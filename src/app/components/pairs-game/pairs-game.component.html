@@ -11,9 +11,11 @@
         <dialog class="pairs-game__modal" popover="auto">
             <h2>You win!</h2>
             <p>Want to play again?</p>
-            <span class="pairs-game__modal-button" (click)="resetGame(2)">Easy (2 pairs)</span>
-            <span class="pairs-game__modal-button" (click)="resetGame(4)">Medium (4 pairs)</span>
-            <span class="pairs-game__modal-button" (click)="resetGame(6)">Hard (6 pairs)</span>
+            <div class="button-group">
+                <button class="pairs-game__modal-button" (click)="resetGame(2)">Easy (2 pairs)</button>
+                <button class="pairs-game__modal-button" (click)="resetGame(4)">Medium (4 pairs)</button>
+                <button class="pairs-game__modal-button" (click)="resetGame(6)">Hard (6 pairs)</button>
+            </div>
         </dialog>
     </div>
 </div>
