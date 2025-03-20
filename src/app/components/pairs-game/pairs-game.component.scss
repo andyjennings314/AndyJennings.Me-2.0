@@ -59,6 +59,10 @@
         background-color: #242446;
         box-shadow: rgba(0, 0, 0, 0.6) 5px 5px;
 
+        &::backdrop {
+            backdrop-filter: blur(4px);
+        }
+
         h2 {
             margin: 0;
         }

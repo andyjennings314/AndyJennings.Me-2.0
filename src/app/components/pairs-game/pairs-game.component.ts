@@ -13,12 +13,11 @@ export class PairsGameComponent implements OnInit {
   clickedCards: Card[];
   clickingActive: boolean;
   selectedCards: Card[];
-  winGame: boolean;
+
   constructor(){
     this.clickingActive = true;
     this.selectedCards = [];
     this.clickedCards = [];
-    this.winGame = false;
     this.cardSortingHolding = [];
   }
 
@@ -63,8 +62,9 @@ export class PairsGameComponent implements OnInit {
                       }
                       var remainingCards = this.selectedCards.filter(card => card.correct == false );
                       if (remainingCards.length == 0) {
-                          //U R TEH WINRAR
-                          this.winGame = true;
+                          // A winner is you!
+                          // Show the modal (I'd prefer to set it via more Angular-native methods, but backdrops apparently aren't interested in that)
+                          document.querySelector('dialog')?.showModal()
                       }
                     });
                 }
@@ -85,7 +85,7 @@ export class PairsGameComponent implements OnInit {
   resetGame = (numberOfCards: number) => {
     //do some reset stuff
     this.selectedCards = [];
-    this.winGame = false;
+    document.querySelector('dialog')?.close()
 
     setTimeout(() => {
       //then shuffle some cards
